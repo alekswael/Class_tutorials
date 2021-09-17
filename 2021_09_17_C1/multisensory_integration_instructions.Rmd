@@ -23,6 +23,8 @@ If you're up for a challenge you can also write code which loads all the data in
 
 ```{r}
 #loading data
+data_audition <- read_bulk(directory = "Audition")
+data_vision <- read_bulk(directory = "Vision")
 
 ```
 
@@ -49,6 +51,13 @@ Interpret the findings. Do they match your predictions? Why? Why not?
 ########################## PLOTTING TIME ##################################
 
 # write your code here
+data_audition %>% 
+  ggplot(aes(x = congruency, y = rt, fill = congruency))+
+  geom_boxplot()
+
+data_vision %>% 
+  ggplot(aes(x = congruency, y = rt, fill = congruency))+
+  geom_boxplot()
 
 ```
 
@@ -58,6 +67,8 @@ Does congruency predict the reaction time?
 Try making a simple linear model. Here, you should consider removing the incorrect trials.
 
 ```{r}
+summary(lm(rt ~ congruency, data = data_audition))
+summary(lm(rt ~ congruency, data = data_vision))
 
 ```
 
@@ -67,7 +78,15 @@ Make a graph of accuracy rate. Can you visualize the relationship between congru
 Discuss the resulting plots. 
 
 ```{r}
+data_audition %>% 
+  ggplot(aes(x = congruency, fill = accuracy))+
+  geom_bar()
 
+data_vision %>% 
+  ggplot(aes(x = congruency, group = accuracy))+
+  geom_bar()+
+  facet_grid(~)
+  
 ```
 
 
